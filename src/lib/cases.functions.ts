@@ -105,13 +105,17 @@ export const updateCaseStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => StatusSchema.parse(data))
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = { status: data.status };
-    if (data.status === "submitted" || data.status === "awaiting_reply") {
-      patch.submitted_at = new Date().toISOString();
-      patch.follow_up_at = new Date(Date.now() + 28 * 24 * 60 * 60 * 1000).toISOString();
-      if (data.submission_channel) patch.submission_channel = data.submission_channel;
-      if (data.fee_paid_eur != null) patch.fee_paid_eur = data.fee_paid_eur;
-    }
+    const patch = {
+      status: data.status,
+      ...(data.status === "submitted" || data.status === "awaiting_reply"
+        ? {
+            submitted_at: new Date().toISOString(),
+            follow_up_at: new Date(Date.now() + 28 * 24 * 60 * 60 * 1000).toISOString(),
+            submission_channel: data.submission_channel ?? null,
+            fee_paid_eur: data.fee_paid_eur ?? null,
+          }
+        : {}),
+    };
     const { error } = await context.supabase.from("cases").update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
