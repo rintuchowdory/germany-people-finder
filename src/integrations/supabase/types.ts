@@ -14,16 +14,331 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      case_responses: {
+        Row: {
+          case_id: string
+          created_at: string
+          current_city: string | null
+          current_country: string | null
+          current_full_name: string | null
+          current_postal_code: string | null
+          current_street: string | null
+          date_of_death: string | null
+          id: string
+          notes: string | null
+          outcome: Database["public"]["Enums"]["response_outcome"]
+          owner_id: string
+          prior_addresses: Json | null
+          response_date: string | null
+          uploaded_file_path: string | null
+        }
+        Insert: {
+          case_id: string
+          created_at?: string
+          current_city?: string | null
+          current_country?: string | null
+          current_full_name?: string | null
+          current_postal_code?: string | null
+          current_street?: string | null
+          date_of_death?: string | null
+          id?: string
+          notes?: string | null
+          outcome: Database["public"]["Enums"]["response_outcome"]
+          owner_id: string
+          prior_addresses?: Json | null
+          response_date?: string | null
+          uploaded_file_path?: string | null
+        }
+        Update: {
+          case_id?: string
+          created_at?: string
+          current_city?: string | null
+          current_country?: string | null
+          current_full_name?: string | null
+          current_postal_code?: string | null
+          current_street?: string | null
+          date_of_death?: string | null
+          id?: string
+          notes?: string | null
+          outcome?: Database["public"]["Enums"]["response_outcome"]
+          owner_id?: string
+          prior_addresses?: Json | null
+          response_date?: string | null
+          uploaded_file_path?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_responses_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_subjects: {
+        Row: {
+          additional_info: string | null
+          birth_name: string | null
+          case_id: string
+          created_at: string
+          date_of_birth: string | null
+          first_name: string
+          gender: string | null
+          id: string
+          last_known_city: string | null
+          last_known_postal_code: string | null
+          last_known_street: string | null
+          last_name: string
+          owner_id: string
+        }
+        Insert: {
+          additional_info?: string | null
+          birth_name?: string | null
+          case_id: string
+          created_at?: string
+          date_of_birth?: string | null
+          first_name: string
+          gender?: string | null
+          id?: string
+          last_known_city?: string | null
+          last_known_postal_code?: string | null
+          last_known_street?: string | null
+          last_name: string
+          owner_id: string
+        }
+        Update: {
+          additional_info?: string | null
+          birth_name?: string | null
+          case_id?: string
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string
+          gender?: string | null
+          id?: string
+          last_known_city?: string | null
+          last_known_postal_code?: string | null
+          last_known_street?: string | null
+          last_name?: string
+          owner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_subjects_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          created_at: string
+          declared_no_advertising: boolean
+          fee_paid_eur: number | null
+          follow_up_at: string | null
+          id: string
+          legitimate_interest_text: string | null
+          meldeamt_id: string | null
+          meldeamt_snapshot: Json | null
+          owner_id: string
+          purpose_text: string | null
+          request_type: Database["public"]["Enums"]["request_type"]
+          status: Database["public"]["Enums"]["case_status"]
+          submission_channel:
+            | Database["public"]["Enums"]["submission_channel"]
+            | null
+          submitted_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          declared_no_advertising?: boolean
+          fee_paid_eur?: number | null
+          follow_up_at?: string | null
+          id?: string
+          legitimate_interest_text?: string | null
+          meldeamt_id?: string | null
+          meldeamt_snapshot?: Json | null
+          owner_id: string
+          purpose_text?: string | null
+          request_type?: Database["public"]["Enums"]["request_type"]
+          status?: Database["public"]["Enums"]["case_status"]
+          submission_channel?:
+            | Database["public"]["Enums"]["submission_channel"]
+            | null
+          submitted_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          declared_no_advertising?: boolean
+          fee_paid_eur?: number | null
+          follow_up_at?: string | null
+          id?: string
+          legitimate_interest_text?: string | null
+          meldeamt_id?: string | null
+          meldeamt_snapshot?: Json | null
+          owner_id?: string
+          purpose_text?: string | null
+          request_type?: Database["public"]["Enums"]["request_type"]
+          status?: Database["public"]["Enums"]["case_status"]
+          submission_channel?:
+            | Database["public"]["Enums"]["submission_channel"]
+            | null
+          submitted_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_meldeamt_id_fkey"
+            columns: ["meldeamt_id"]
+            isOneToOne: false
+            referencedRelation: "meldeaemter"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meldeaemter: {
+        Row: {
+          accepts_email: boolean
+          ags: string | null
+          city: string
+          created_at: string
+          email: string | null
+          fee_einfach_eur: number | null
+          fee_erweitert_eur: number | null
+          id: string
+          name: string
+          notes: string | null
+          online_portal_url: string | null
+          phone: string | null
+          postal_code: string
+          street: string | null
+          updated_at: string
+        }
+        Insert: {
+          accepts_email?: boolean
+          ags?: string | null
+          city: string
+          created_at?: string
+          email?: string | null
+          fee_einfach_eur?: number | null
+          fee_erweitert_eur?: number | null
+          id?: string
+          name: string
+          notes?: string | null
+          online_portal_url?: string | null
+          phone?: string | null
+          postal_code: string
+          street?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accepts_email?: boolean
+          ags?: string | null
+          city?: string
+          created_at?: string
+          email?: string | null
+          fee_einfach_eur?: number | null
+          fee_erweitert_eur?: number | null
+          id?: string
+          name?: string
+          notes?: string | null
+          online_portal_url?: string | null
+          phone?: string | null
+          postal_code?: string
+          street?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          city: string | null
+          country: string
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          postal_code: string | null
+          street: string | null
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          postal_code?: string | null
+          street?: string | null
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          country?: string
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          postal_code?: string | null
+          street?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      case_status:
+        | "draft"
+        | "submitted"
+        | "awaiting_reply"
+        | "answered"
+        | "negative"
+        | "refused"
+      request_type: "einfach" | "erweitert"
+      response_outcome: "address_received" | "negative" | "refused" | "no_reply"
+      submission_channel: "post" | "email" | "portal" | "in_person"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +465,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      case_status: [
+        "draft",
+        "submitted",
+        "awaiting_reply",
+        "answered",
+        "negative",
+        "refused",
+      ],
+      request_type: ["einfach", "erweitert"],
+      response_outcome: ["address_received", "negative", "refused", "no_reply"],
+      submission_channel: ["post", "email", "portal", "in_person"],
+    },
   },
 } as const
