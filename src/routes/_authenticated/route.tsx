@@ -29,14 +29,14 @@ function AuthenticatedLayout() {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link to="/_authenticated" className="font-serif text-xl font-bold tracking-tight">
+          <Link to="/dashboard" className="font-serif text-xl font-bold tracking-tight">
             Melde<span className="text-primary">amt</span>.helper
           </Link>
           <nav className="flex items-center gap-6 text-sm">
-            <Link to="/_authenticated" className="text-muted-foreground hover:text-foreground">
+            <Link to="/dashboard" className="text-muted-foreground hover:text-foreground">
               Meine Anfragen
             </Link>
-            <Link to="/_authenticated/profile" className="text-muted-foreground hover:text-foreground">
+            <Link to="/profile" className="text-muted-foreground hover:text-foreground">
               Profil
             </Link>
             <span className="hidden text-xs text-muted-foreground md:inline">{email}</span>

@@ -33,7 +33,7 @@ function Dashboard() {
             Alle Ihre Melderegister-Anfragen an einem Ort.
           </p>
         </div>
-        <Link to="/_authenticated/cases/new">
+        <Link to="/cases/new">
           <Button>Neue Anfrage</Button>
         </Link>
       </div>
@@ -43,7 +43,7 @@ function Dashboard() {
       {!isLoading && (!data || data.length === 0) && (
         <Card className="p-10 text-center">
           <p className="text-muted-foreground">Noch keine Anfragen.</p>
-          <Link to="/_authenticated/cases/new">
+          <Link to="/cases/new">
             <Button className="mt-4">Erste Anfrage anlegen</Button>
           </Link>
         </Card>
@@ -53,7 +53,7 @@ function Dashboard() {
         {data?.map((c) => (
           <Link
             key={c.id}
-            to="/_authenticated/cases/$caseId"
+            to="/cases/$caseId"
             params={{ caseId: c.id }}
             className="block"
           >

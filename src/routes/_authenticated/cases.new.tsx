@@ -106,7 +106,7 @@ function NewCase() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
-      <Link to="/_authenticated" className="text-sm text-muted-foreground">← Zurück</Link>
+      <Link to="/dashboard" className="text-sm text-muted-foreground">← Zurück</Link>
       <h1 className="mt-2 font-serif text-3xl font-bold">Neue Anfrage</h1>
       <p className="mt-1 text-sm text-muted-foreground">Schritt {step} von 4</p>
 
