@@ -101,7 +101,7 @@ function CaseDetail() {
     mutationFn: () => delFn({ data: { id: caseId } }),
     onSuccess: () => {
       toast.success("Gelöscht");
-      window.location.href = "/_authenticated";
+      window.location.href = "/dashboard";
     },
   });
 
