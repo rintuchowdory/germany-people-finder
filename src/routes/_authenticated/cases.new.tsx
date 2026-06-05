@@ -85,7 +85,7 @@ function NewCase() {
       }),
     onSuccess: (res) => {
       toast.success("Anfrage erstellt");
-      router.navigate({ to: "/_authenticated/cases/$caseId", params: { caseId: res.id } });
+      router.navigate({ to: "/cases/$caseId", params: { caseId: res.id } });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Fehler"),
   });

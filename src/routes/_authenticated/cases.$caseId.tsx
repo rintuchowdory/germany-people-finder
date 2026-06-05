@@ -111,7 +111,7 @@ function CaseDetail() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
-      <Link to="/_authenticated" className="text-sm text-muted-foreground">← Zurück</Link>
+      <Link to="/dashboard" className="text-sm text-muted-foreground">← Zurück</Link>
       <div className="mt-2 flex items-start justify-between">
         <div>
           <h1 className="font-serif text-3xl font-bold">{c.title}</h1>

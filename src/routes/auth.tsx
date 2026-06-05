@@ -27,7 +27,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) router.navigate({ to: "/_authenticated" });
+      if (data.user) router.navigate({ to: "/dashboard" });
     });
   }, [router]);
 
@@ -47,7 +47,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       }
-      router.navigate({ to: "/_authenticated" });
+      router.navigate({ to: "/dashboard" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen");
     } finally {
@@ -66,7 +66,7 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    router.navigate({ to: "/_authenticated" });
+    router.navigate({ to: "/dashboard" });
   }
 
   return (
