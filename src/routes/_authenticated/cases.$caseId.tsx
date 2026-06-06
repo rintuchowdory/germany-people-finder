@@ -156,6 +156,49 @@ function CaseDetail() {
             <Button onClick={() => downloadPdf.mutate()} disabled={downloadPdf.isPending}>
               {downloadPdf.isPending ? "Erstelle PDF…" : "Antrag als PDF herunterladen"}
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                const subjectLine = `Antrag auf ${c.request_type === "erweitert" ? "erweiterte" : "einfache"} Melderegisterauskunft (§${c.request_type === "erweitert" ? "45" : "44"} BMG)`;
+                const personLine = subject
+                  ? `${subject.first_name} ${subject.last_name}${subject.birth_name ? ` (geb. ${subject.birth_name})` : ""}${subject.date_of_birth ? `, geb. am ${subject.date_of_birth}` : ""}`
+                  : "[Person]";
+                const lastAddr =
+                  subject && (subject.last_known_street || subject.last_known_city)
+                    ? `Letzte bekannte Anschrift: ${subject.last_known_street ?? ""} ${subject.last_known_postal_code ?? ""} ${subject.last_known_city ?? ""}`.trim()
+                    : "";
+                const body = [
+                  `Sehr geehrte Damen und Herren,`,
+                  ``,
+                  `hiermit beantrage ich gemäß §${c.request_type === "erweitert" ? "45" : "44"} BMG eine ${c.request_type === "erweitert" ? "erweiterte" : "einfache"} Melderegisterauskunft zu folgender Person:`,
+                  ``,
+                  personLine,
+                  lastAddr,
+                  ``,
+                  `Zweck der Anfrage: ${c.purpose_text ?? ""}`,
+                  c.request_type === "erweitert" && c.legitimate_interest_text
+                    ? `Berechtigtes Interesse: ${c.legitimate_interest_text}`
+                    : "",
+                  ``,
+                  `Ich versichere, dass die Daten nicht zu Zwecken der Werbung oder des Adresshandels verwendet werden.`,
+                  ``,
+                  `Der vollständige, unterschriebene Antrag ist diesem Schreiben als PDF beigefügt.`,
+                  ``,
+                  `Mit freundlichen Grüßen`,
+                ]
+                  .filter(Boolean)
+                  .join("\n");
+                const mailto = ma?.email
+                  ? `mailto:${ma.email}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`
+                  : null;
+                navigator.clipboard.writeText(`${subjectLine}\n\n${body}`).then(() => {
+                  toast.success("E-Mail-Text in Zwischenablage kopiert");
+                });
+                if (mailto) window.location.href = mailto;
+              }}
+            >
+              E-Mail-Vorlage
+            </Button>
             {(c.status === "draft" || c.status === "submitted") && (
               <Select onValueChange={(v) => markSubmitted.mutate(v as "post" | "email" | "portal" | "in_person")}>
                 <SelectTrigger className="w-[220px]"><SelectValue placeholder="Als versendet markieren…" /></SelectTrigger>
