@@ -87,6 +87,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Lovable App" },
       { name: "twitter:description", content: "Find people in Germany by name to discover their location and other details." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36b16774-f911-4aa2-8971-59e7807fceaf/id-preview-4c1119b5--490d8098-cb17-4810-8865-a1714f80e0e1.lovable.app-1780746035742.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36b16774-f911-4aa2-8971-59e7807fceaf/id-preview-4c1119b5--490d8098-cb17-4810-8865-a1714f80e0e1.lovable.app-1780746035742.png" },
     ],
     links: [
       {
